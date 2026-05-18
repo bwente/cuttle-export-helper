@@ -1,0 +1,35 @@
+{
+  "name": "Cuttle Export Helper",
+  "description": "Batch export with multiple parameters, per-parameter modes, templates, and persistence.",
+  "version": "2.7.0",
+  "manifest_version": 3,
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png"
+    }
+  },
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "*://cuttle.xyz/*",
+    "*://*.cuttle.xyz/*"
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "cuttle-export-helper@bwente",
+      "strict_min_version": "128.0"
+    }
+  }
+}

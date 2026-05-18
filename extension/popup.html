@@ -1,0 +1,308 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Cuttle Export</title>
+  <style>
+    /* ── Tokens ── */
+    :root {
+      --bg:          #ffffff;
+      --bg-subtle:   #f5f5f5;
+      --border:      #e0e0e0;
+      --text:        #1a1a1a;
+      --text-muted:  #6b6b6b;
+      --accent:      #5b4fcf;
+      --accent-hover:#4a3fba;
+      --danger:      #c0392b;
+      --danger-hover:#a93226;
+      --radius:      6px;
+      --radius-card: 10px;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:          #1e1e1e;
+        --bg-subtle:   #2a2a2a;
+        --border:      #3a3a3a;
+        --text:        #f0f0f0;
+        --text-muted:  #909090;
+        --accent:      #7c6fe0;
+        --accent-hover:#9080e8;
+        --danger:      #e05c4a;
+        --danger-hover:#e87060;
+      }
+    }
+
+    /* ── Reset / base ── */
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      font: 13px/1.5 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      margin: 0;
+      padding: 14px 16px 16px;
+      width: 540px;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    /* ── Header ── */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .header h1 {
+      font-size: 15px;
+      font-weight: 600;
+      margin: 0;
+      letter-spacing: -0.01em;
+    }
+    .header .badge {
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px 5px;
+      margin-left: auto;
+    }
+
+    /* ── Sections ── */
+    .section {
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+      margin-top: 12px;
+    }
+
+    /* ── Form labels ── */
+    .field-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    /* ── Inputs ── */
+    input[type="text"],
+    select,
+    textarea {
+      width: 100%;
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 6px 8px;
+      font: inherit;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    input[type="text"]:focus,
+    select:focus,
+    textarea:focus { border-color: var(--accent); }
+    textarea { height: 68px; resize: vertical; }
+
+    /* ── Radio groups ── */
+    .radio-group {
+      display: flex;
+      gap: 4px;
+    }
+    .radio-group label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 13px;
+      cursor: pointer;
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .radio-group label:has(input:checked) {
+      border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .radio-group input[type="radio"] { accent-color: var(--accent); }
+
+    /* ── Scope + format row ── */
+    .top-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    /* ── Param cards ── */
+    .params { display: grid; gap: 8px; margin-bottom: 10px; }
+    .param-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 10px;
+      background: var(--bg-subtle);
+    }
+    .param-head {
+      display: grid;
+      grid-template-columns: 1fr 110px auto;
+      gap: 8px;
+      align-items: end;
+      margin-bottom: 8px;
+    }
+    .param-head .field-label { margin-bottom: 4px; }
+
+    /* ── Buttons ── */
+    button {
+      font: inherit;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      padding: 6px 12px;
+      transition: background 0.15s, opacity 0.15s;
+    }
+    button:active { opacity: 0.8; }
+
+    #run {
+      width: 100%;
+      padding: 9px;
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--accent);
+      color: #fff;
+      letter-spacing: 0.01em;
+    }
+    #run:hover { background: var(--accent-hover); }
+    #run:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    #addParam {
+      font-size: 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    #addParam:hover { border-color: var(--accent); color: var(--accent); }
+
+    .remove {
+      font-size: 12px;
+      padding: 5px 10px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+    .remove:hover { border-color: var(--danger); color: var(--danger); }
+
+    /* ── Batch mode row ── */
+    .params-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    /* ── Preview ── */
+    #preview {
+      margin-top: 6px;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      max-height: 56px;
+      overflow-y: auto;
+      word-break: break-all;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 5px 8px;
+      min-height: 28px;
+    }
+    #preview em { font-style: normal; font-weight: 600; color: var(--text-muted); margin-right: 2px; }
+
+    /* ── Status ── */
+    #status {
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--text-muted);
+      min-height: 18px;
+      text-align: center;
+    }
+
+    /* ── Info banner ── */
+    .info-banner {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 6px 10px;
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+    .info-banner strong { color: var(--text); font-weight: 600; }
+
+    /* ── Helper text ── */
+    .hint {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Cuttle Export Helper</h1>
+    <span class="badge">v2.7.0</span>
+  </div>
+
+  <div class="info-banner">
+    <strong>Only works in edit mode.</strong><br>
+    Won't work on the Readme page — open the editor first via <strong>··· → Open In Cuttle Editor</strong>.
+  </div>
+
+  <div class="top-row">
+    <div>
+      <span class="field-label">Scope</span>
+      <div class="radio-group">
+        <label><input type="radio" name="scope" value="project" checked> Project</label>
+        <label><input type="radio" name="scope" value="component"> Component</label>
+      </div>
+    </div>
+    <div>
+      <span class="field-label">Format</span>
+      <select id="format">
+        <option value="svg" selected>SVG</option>
+        <option value="png">PNG</option>
+        <option value="pdf">PDF</option>
+        <option value="dxf">DXF</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="section">
+    <span class="field-label">Parameters</span>
+    <div class="params" id="params"></div>
+    <div class="params-footer">
+      <button id="addParam" type="button">+ Add parameter</button>
+      <div class="radio-group">
+        <label><input type="radio" name="batchMode" value="pair" checked> Pair rows</label>
+        <label><input type="radio" name="batchMode" value="product"> All combinations</label>
+      </div>
+    </div>
+    <p class="hint">Code mode wraps values in single quotes — correct for most Cuttle parameters.</p>
+  </div>
+
+  <div class="section">
+    <span class="field-label">Filename template</span>
+    <input id="template" type="text" value="name-{name}" />
+    <div id="preview"></div>
+    <p class="hint">Use <code>{param}</code> placeholders. Defaults: <code>{param|fallback}</code>. Case-insensitive.</p>
+  </div>
+
+  <div class="section">
+    <button id="run">Export</button>
+    <div id="status" aria-live="polite"></div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
