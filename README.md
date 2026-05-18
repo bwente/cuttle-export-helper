@@ -22,6 +22,8 @@ With this extension:
 
 One click. Twenty files: `LED_TABLE_1_SIGN.svg`, `LED_TABLE_2_SIGN.svg`, and so on — ready for the laser cutter.
 
+![Cuttle Export Helper popup](screenshots/cuttle-export-helper-popup.png)
+
 ---
 
 ## Features
