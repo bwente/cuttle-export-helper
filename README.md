@@ -43,7 +43,7 @@ One click. Twenty files: `LED_TABLE_1_SIGN.svg`, `LED_TABLE_2_SIGN.svg`, and so 
 | Browser | Status |
 |---------|--------|
 | [Firefox](https://addons.mozilla.org/en-US/firefox/addon/cuttle-export-helper/) | Available |
-| Microsoft Edge | Pending review |
+| [Microsoft Edge](https://microsoftedge.microsoft.com/addons/detail/cuttle-export-helper/cjfhcmiinoejhbohfeggejlfmmoemcnh) | Available |
 | Chrome | Coming soon |
 
 > **Note:** Only works in the Cuttle editor. Won't work on template Readme pages — use **··· → Open In Cuttle Editor** first.
