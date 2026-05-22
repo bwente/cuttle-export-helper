@@ -40,31 +40,15 @@ One click. Twenty files: `LED_TABLE_1_SIGN.svg`, `LED_TABLE_2_SIGN.svg`, and so 
 
 ## Installation
 
+| Browser | Status |
+|---------|--------|
+| [Firefox](https://addons.mozilla.org/en-US/firefox/addon/cuttle-export-helper/) | Available |
+| Microsoft Edge | Pending review |
+| Chrome | Coming soon |
+
 > **Note:** Only works in the Cuttle editor. Won't work on template Readme pages — use **··· → Open In Cuttle Editor** first.
 
 > **Tip:** The popup opens anchored to the extension icon, which by default sits in the top-right corner — directly above Cuttle's parameter panel. If it covers your parameters, move the extension icon to the left side of your browser toolbar to shift the popup out of the way.
-
-### Chrome
-
-1. Go to `chrome://extensions`
-2. Enable **Developer mode** (top right)
-3. Click **Load unpacked**
-4. Select the `extension` folder from this repo
-
-### Microsoft Edge
-
-1. Go to `edge://extensions`
-2. Enable **Developer mode** (bottom left)
-3. Click **Load unpacked**
-4. Select the `extension` folder from this repo
-
-### Firefox
-
-1. Go to `about:debugging#/runtime/this-firefox`
-2. Click **Load Temporary Add-on…**
-3. Open the `extension` folder and select `manifest.json`
-
-> Temporarily loaded Firefox add-ons are removed when Firefox closes. A persistent install requires Mozilla signing.
 
 ---
 
